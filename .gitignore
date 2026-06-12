@@ -1,0 +1,19 @@
+# Artefactos de compilación
+build/
+*.o
+*.obj
+*.exe
+output.ll
+output.o
+
+# Archivos generados por ANTLR (se regeneran)
+# (descomenta si no quieres versionarlos)
+# antlr4_generated/
+
+# IDE
+.vscode/
+.idea/
+
+# Sistema
+Thumbs.db
+.DS_Store

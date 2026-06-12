@@ -1,0 +1,7 @@
+find_package(LLVM REQUIRED CONFIG)
+llvm_map_components_to_libnames(NATIVE_LIBS native)
+message(STATUS "native -> ${NATIVE_LIBS}")
+llvm_map_components_to_libnames(NATIVEASM_LIBS nativeasmprinter)
+message(STATUS "nativeasmprinter -> ${NATIVEASM_LIBS}")
+llvm_map_components_to_libnames(ALL_LIBS core support irreader)
+message(STATUS "core+support+irreader -> ${ALL_LIBS}")
