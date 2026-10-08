@@ -4,6 +4,8 @@ Compilador para Mini-GO, un subconjunto del lenguaje Go, desarrollado para el cu
 Compiladores e Intérpretes del Instituto Tecnológico de Costa Rica (Sede San Carlos),
 I Semestre 2026.
 
+<p align="center"><img src="documentation/img/editor-errores-semanticos.png" alt="Editor de MiniGo mostrando los errores semánticos con línea y columna" width="100%"></p>
+
 El compilador realiza análisis léxico, sintáctico, chequeo de tipos y alcances, y
 generación de código de máquina real x86-64 usando ANTLR4 y LLVM. Incluye además un
 editor gráfico (Qt6) que compila, ejecuta y muestra los errores por línea y columna.
@@ -15,8 +17,37 @@ editor gráfico (Qt6) que compila, ejecuta y muestra los errores por línea y co
 
 Repositorio: https://github.com/lenokeckler/MINI-GO-LENO
 
+## Capturas
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><img src="documentation/img/editor-compilar-y-ejecutar.png" alt="Compilar y ejecutar desde el editor"><br><sub><b>Compilar y ejecutar.</b> Funciones con recursión (factorial, Fibonacci) compiladas a LLVM y ejecutadas desde el editor.</sub></td>
+    <td width="50%" valign="top"><img src="documentation/img/editor-llvm-ir.png" alt="LLVM IR generado"><br><sub><b>LLVM IR.</b> Al compilar, el editor muestra el código intermedio que generó el Encoder para slices y <code>append</code>.</sub></td>
+  </tr>
+  <tr>
+    <td valign="top"><img src="documentation/img/golem-quest.png" alt="Golem Quest"><br><sub><b>Golem Quest.</b> Un mini RPG de consola escrito solo con lo que permite la gramática: structs, slices, funciones, <code>switch</code> y un generador de azar propio.</sub></td>
+    <td valign="top"><img src="documentation/img/editor-tema-go.png" alt="Editor con el tema Go"><br><sub><b>Temas.</b> El editor trae cuatro temas (Clásico, Oscuro, Claro y Go); aquí FizzBuzz con el tema Go.</sub></td>
+  </tr>
+</table>
+
+La captura de arriba es <code>tests/13_errors.go</code>: 21 errores semánticos (10 de tipos y 11 de
+alcance), cada uno con línea, columna y sugerencias del tipo "did you mean?".
+
+## Arquitectura
+
+<p align="center"><img src="documentation/img/pipeline-del-compilador.png" alt="Pipeline del compilador: lexer, parser, TypeChecker, Encoder y LLVM" width="420"></p>
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><img src="documentation/img/control-de-flujo.png" alt="Bloques básicos de if/else y for"><br><sub><b>Control de flujo.</b> Bloques básicos que genera el Encoder para <code>if</code>/<code>else</code> y <code>for</code>, con <code>break</code> y <code>continue</code>.</sub></td>
+    <td width="50%" valign="top"><img src="documentation/img/slices-y-append.png" alt="Representación de un slice y append"><br><sub><b>Slices.</b> Cabecera <code>{data, len, cap}</code> con buffer en el heap y crecimiento al doble en <code>append</code>.</sub></td>
+  </tr>
+</table>
+
 ## Tabla de contenidos
 
+- [Capturas](#capturas)
+- [Arquitectura](#arquitectura)
 - [Instalación automática (Windows)](#instalación-automática-windows)
 - [Instalación manual](#instalación-manual)
 - [Compilación](#compilación)
@@ -132,6 +163,7 @@ MINI-GO-LENO/
 │   └── editor/                   # Editor gráfico Qt6 (CodeEditor, temas, highlight)
 ├── tests/                        # Archivos de prueba .go (ver abajo)
 ├── documentation/                # Documentación del proyecto
+│   └── img/                      # Capturas del editor y diagramas
 ├── antlr-4.13.2-complete.jar     # Generador del parser
 ├── CMakeLists.txt
 └── run_editor.bat
